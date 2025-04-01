@@ -8,7 +8,7 @@ class DiscountHandler:
         self.discount_codes = {}
         self.total_discount = 0
 
-    def validate_discount_code(self, discount_code: str) -> bool:
+    def is_discount_code_valid(self, discount_code: str) -> bool:
         """
         Validate the discount code.
         """
@@ -18,7 +18,7 @@ class DiscountHandler:
             return True
         return False
     
-    def create_discout_code(self) -> None:
+    def create_discout_code(self) -> str:
         """
         Create a new discount code.
         """
@@ -27,5 +27,11 @@ class DiscountHandler:
         discount_code = secrets.token_hex(10)
         self.discount_codes[discount_code] = False
         return discount_code
-
-
+    
+    def get_discount_amount(self, total_amount: float) -> float:
+        """
+        Calculate the discount amount and update the total discount.
+        """
+        discount = total_amount * 0.1
+        self.total_discount += discount
+        return discount
