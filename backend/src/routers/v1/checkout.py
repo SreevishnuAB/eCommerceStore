@@ -9,7 +9,14 @@ router = APIRouter(prefix="/checkout")
 
 @router.get("")
 def checkout_cart(discount_code: Annotated[str | None, Query(alias="discount-code")] = None) -> CheckoutResponse:
-    amount_payable = cart_handler.get_cart_amount()
+    try:
+        amount_payable = cart_handler.get_cart_amount()
+    except ValueError as e:
+        raise HTTPException(
+            status_code=400,
+            detail=str(e),
+        )
+
     if discount_code:
         if not discount_handler.is_discount_code_valid(discount_code):
             raise HTTPException(

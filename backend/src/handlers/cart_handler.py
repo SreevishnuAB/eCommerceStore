@@ -20,6 +20,8 @@ class CartHandler:
         Calculate the total cart value.
         """
         amount = 0
+        if not self.cart:
+            raise ValueError("Cart is empty")
         for item in self.cart:
             amount += item.quantity * item.price
         return amount
@@ -29,6 +31,8 @@ class CartHandler:
         Calculate the total number of items in the cart.
         """
         count = 0
+        if not self.cart:
+            raise ValueError("Cart is empty")
         for item in self.cart:
             count += item.quantity
         return count

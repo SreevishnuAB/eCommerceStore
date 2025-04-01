@@ -23,8 +23,8 @@ class DiscountHandler:
         Create a new discount code.
         """
 
-        # creates a random unique string of length 10
-        discount_code = secrets.token_hex(10)
+        # creates a random unique string of length 10 characters/5 bytes
+        discount_code = secrets.token_hex(5)
         self.discount_codes[discount_code] = False
         return discount_code
     

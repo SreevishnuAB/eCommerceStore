@@ -1,6 +1,9 @@
+import os
 from typing import List
 from src.handlers.discount_handler import DiscountHandler
 from src.models.cart import CartItem
+
+ENV_ORDERS_BETWEEN_DISCOUNT = "ORDERS_BETWEEN_DISCOUNT"
 
 
 class StatsHandler:
@@ -72,8 +75,9 @@ class StatsHandler:
         Check if the order is eligible for a discount.
         """
         print(f"Order count: {self.order_count}")
-        # Every 3rd order is eligible for a discount, for demonstration purposes
-        if (self.order_count + 1) % 3 == 0:
+        # Every nth order is eligible for a discount, for demonstration purposes
+        n = int(os.environ.get(ENV_ORDERS_BETWEEN_DISCOUNT, 3))
+        if (self.order_count + 1) % n == 0:
             return True
         return False
 
