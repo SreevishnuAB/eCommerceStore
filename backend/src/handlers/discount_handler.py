@@ -1,5 +1,5 @@
-import dis
 import secrets
+from typing import List
 
 
 class DiscountHandler:
@@ -35,3 +35,6 @@ class DiscountHandler:
         discount = total_amount * 0.1
         self.total_discount += discount
         return discount
+    
+    def get_discount_codes(self) -> List[str]:
+        return list(self.discount_codes.keys())
