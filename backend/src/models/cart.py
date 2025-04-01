@@ -6,7 +6,7 @@ class CartItem(BaseModel):
     itemId: str
     itemName: str
     quantity: int
-    amount: float
+    price: float
 
     @field_validator('quantity', mode='after')
     @classmethod
@@ -15,9 +15,9 @@ class CartItem(BaseModel):
             raise ValueError("Quantity must be greater than zero.")
         return quantity
     
-    @field_validator('amount', mode='after')
+    @field_validator('price', mode='after')
     @classmethod
-    def ensure_non_zero_amount(cls, amount: float) -> float:
+    def ensure_non_zero_price(cls, amount: float) -> float:
         if amount <= 0:
             raise ValueError("Amount must be greater than zero.")
         return amount
