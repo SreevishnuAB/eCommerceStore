@@ -4,10 +4,9 @@ from src.models.cart import CartItem
 
 
 class StatsHandler:
-    def __init__(self, discount_handler: DiscountHandler):
+    def __init__(self):
         self._total_item_count = 0
         self._total_purchase_amount = 0.0
-        self._discount_handler = discount_handler
         self._total_discount = 0.0
         self._order_count = 0
 
@@ -72,17 +71,18 @@ class StatsHandler:
         """
         Check if the order is eligible for a discount.
         """
-
+        print(f"Order count: {self.order_count}")
         # Every 3rd order is eligible for a discount, for demonstration purposes
-        if self.order_count + 1 % 3 == 0:
+        if (self.order_count + 1) % 3 == 0:
             return True
         return False
 
-    def update_total_item_count(self, cart_items: List[CartItem]) -> None:
+    def update_total_item_count(self, item_count: int) -> None:
         """
         Update the total number of items in the cart.
         """
-        self.total_item_count += len(cart_items)
+        
+        self.total_item_count += item_count
 
     def update_total_purchase_amount(self, amount_payable: float) -> None:
         """
@@ -90,8 +90,8 @@ class StatsHandler:
         """
         self.total_purchase_amount += amount_payable
 
-    def get_discount_codes(self) -> List[str]:
+    def update_order_count(self) -> None:
         """
-        Get the list of discount codes.
+        Update the order count.
         """
-        return self._discount_handler.get_discount_codes()
+        self.order_count += 1

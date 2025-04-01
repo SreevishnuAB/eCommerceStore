@@ -1,6 +1,6 @@
 from typing import Dict
 from src.models.stats import Stats
-from src.routers.dependencies import stats_handler
+from src.routers.dependencies import stats_handler, discount_handler
 from fastapi import APIRouter
 from fastapi.exceptions import HTTPException
 
@@ -13,8 +13,8 @@ def get_stats()-> Stats:
     return Stats(
         totalItemCount=stats_handler.total_item_count,
         totalPurchaseAmount=stats_handler.total_purchase_amount,
-        totalDiscount=stats_handler.total_discount,
-        discountCodes=stats_handler.get_discount_codes()
+        totalDiscount=discount_handler.total_discount,
+        discountCodes=discount_handler.get_discount_codes()
     )
 
 @router.get("/discount")
@@ -27,6 +27,6 @@ def get_discount_code() -> Dict[str, str]:
             status_code=400,
             detail="Order is not eligible for a discount",
         )
-    discount_code = stats_handler.get_discount_code()
+    discount_code = discount_handler.create_discout_code()
     return {
         "discountCode": discount_code}

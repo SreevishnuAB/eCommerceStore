@@ -21,7 +21,7 @@ class CartHandler:
         """
         amount = 0
         for item in self.cart:
-            amount += item['quantity'] * item['price']
+            amount += item.quantity * item.price
         return amount
     
     def get_cart_count(self) -> int:
@@ -30,7 +30,7 @@ class CartHandler:
         """
         count = 0
         for item in self.cart:
-            count += item['quantity']
+            count += item.quantity
         return count
     
     def get_cart(self) -> List[CartItem]:

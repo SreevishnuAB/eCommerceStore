@@ -11,4 +11,4 @@ from src.handlers.discount_handler import DiscountHandler
 
 cart_handler = CartHandler()
 discount_handler = DiscountHandler()
-stats_handler = StatsHandler(discount_handler=discount_handler)
+stats_handler = StatsHandler()

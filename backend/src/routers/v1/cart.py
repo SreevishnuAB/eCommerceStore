@@ -19,7 +19,7 @@ def update_cart(cart: Cart):
 
 @router.get("")
 def get_cart() -> Cart:
-    return Cart(cartItems=cart_handler.cart)
+    return Cart(cartItems=cart_handler.cart if cart_handler.cart else [])
 
 
 @router.delete("")

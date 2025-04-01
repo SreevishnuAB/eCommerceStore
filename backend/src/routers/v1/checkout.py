@@ -1,6 +1,6 @@
 from typing import Annotated
 from src.models.checkout import CheckoutResponse
-from src.routers.dependencies import discount_handler, cart_handler
+from src.routers.dependencies import discount_handler, cart_handler, stats_handler
 from fastapi import APIRouter, Query
 from fastapi.exceptions import HTTPException
 
@@ -19,4 +19,8 @@ def checkout_cart(discount_code: Annotated[str | None, Query(alias="discount-cod
         
         discount_amount = discount_handler.get_discount_amount(amount_payable)
         amount_payable -= discount_amount
+    stats_handler.update_total_item_count(cart_handler.get_cart_count())
+    stats_handler.update_total_purchase_amount(amount_payable)
+    stats_handler.update_order_count()
+    
     return CheckoutResponse(amountPayable=amount_payable)
